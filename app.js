@@ -5,9 +5,9 @@ var log = bunyan.createLogger({name: "subscriber"});
 var zmq = require('zmq')
   , sock = zmq.socket('sub');
 
-sock.connect('tcp://127.0.0.1:3000');
+sock.connect('tcp://'+ process.argv[2] +':3000');
 sock.subscribe('kitty cats');
-log.info('Subscriber connected to port 3000');
+log.info('Subscriber connected to ' + process.argv[2] + ':3000');
 
 sock.on('message', function(topic, message) {
   log.info('received a message related to:', topic, 'containing message:', message);
